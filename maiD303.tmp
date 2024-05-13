@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://b8gt4gg25fson"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_lltj6"]
+[ext_resource type="PackedScene" uid="uid://bo4e7wp3cuonb" path="res://main_sky_view.tscn" id="2_qmrx6"]
+[ext_resource type="Script" path="res://camera.cs" id="3_3l46o"]
+[ext_resource type="PackedScene" uid="uid://cfaell15opqcd" path="res://back_ground.tscn" id="3_dth3d"]
+[ext_resource type="PackedScene" uid="uid://luy12pcd3g0w" path="res://player.tscn" id="4_ktmft"]
+[ext_resource type="PackedScene" uid="uid://dmj7r73ehj72u" path="res://mob.tscn" id="5_1ribs"]
+[ext_resource type="Script" path="res://path.gd" id="5_dt0jl"]
+[ext_resource type="Script" path="res://path2.gd" id="7_5ksav"]
+[ext_resource type="Script" path="res://path3.gd" id="8_xpmb1"]
+
+[sub_resource type="Curve2D" id="Curve2D_87ebw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 583, 164, 0, 0, 0, 0, 584, 144, 0, 0, 0, 0, 592, 128, 0, 0, 0, 0, 592, 112, 0, 0, 0, 0, 592, 88, 0, 0, 0, 0, 584, 72, 0, 0, 0, 0, 576, 56, 0, 0, 0, 0, 568, 48, 0, 0, 0, 0, 560, 48, 0, 0, 0, 0, 552, 56, 0, 0, 0, 0, 544, 72, 0, 0, 0, 0, 544, 88, 0, 0, 0, 0, 536, 112, 0, 0, 0, 0, 536, 136, 0, 0, 0, 0, 528, 160, 0, 0, 0, 0, 520, 184, 0, 0, 0, 0, 520, 200, 0, 0, 0, 0, 504, 232, 0, 0, 0, 0, 488, 296, 0, 0, 0, 0, 472, 376, 0, 0, 0, 0, 464, 424, 0, 0, 0, 0, 448, 520, 0, 0, 0, 0, 432, 608, 0, 0, 0, 0, 416, 712, 0, 0, 0, 0, 392, 816, 0, 0, 0, 0, 384, 872, 0, 0, 0, 0, 368, 944, 0, 0, 0, 0, 360, 1008, 0, 0, 0, 0, 360, 1056, 0, 0, 0, 0, 344, 1120)
+}
+point_count = 30
+
+[sub_resource type="Curve2D" id="Curve2D_c7n2p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 728, 168, 0, 0, 0, 0, 720, 96, 0, 0, 0, 0, 712, 56, 0, 0, 0, 0, 680, 160, 0, 0, 0, 0, 672, 232, 0, 0, 0, 0, 664, 360, 0, 0, 0, 0, 648, 576, 0, 0, 0, 0, 648, 680, 0, 0, 0, 0, 632, 1000, 0, 0, 0, 0, 624, 1120)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_pliwr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 848, 152, 0, 0, 0, 0, 832, 80, 0, 0, 0, 0, 824, 56, 0, 0, 0, 0, 816, 136, 0, 0, 0, 0, 816, 256, 0, 0, 0, 0, 824, 392, 0, 0, 0, 0, 848, 576, 0, 0, 0, 0, 864, 800, 0, 0, 0, 0, 888, 1008, 0, 0, 0, 0, 912, 1128)
+}
+point_count = 10
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_lltj6")
+mob_scene = ExtResource("5_1ribs")
+
+[node name="MainSkyView" parent="." instance=ExtResource("2_qmrx6")]
+position = Vector2(-5, -1089)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(718, 538)
+script = ExtResource("3_3l46o")
+metadata/_edit_group_ = true
+
+[node name="BackGround" parent="." instance=ExtResource("3_dth3d")]
+
+[node name="Player" parent="BackGround" instance=ExtResource("4_ktmft")]
+position = Vector2(632, 800)
+
+[node name="MobTimer" type="Timer" parent="."]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(643, 733)
+
+[node name="path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_87ebw")
+script = ExtResource("5_dt0jl")
+
+[node name="MobPath1" type="PathFollow2D" parent="path"]
+position = Vector2(583, 164)
+rotation = -1.52084
+
+[node name="Mob" parent="path/MobPath1" instance=ExtResource("5_1ribs")]
+rotation = -1.31598
+
+[node name="path2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_c7n2p")
+script = ExtResource("7_5ksav")
+
+[node name="MobPath2" type="PathFollow2D" parent="path2"]
+position = Vector2(728, 168)
+rotation = -1.68145
+
+[node name="Mob" parent="path2/MobPath2" instance=ExtResource("5_1ribs")]
+rotation = -1.28805
+
+[node name="path3" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pliwr")
+script = ExtResource("8_xpmb1")
+
+[node name="MobPath3" type="PathFollow2D" parent="path3"]
+position = Vector2(848, 152)
+rotation = -1.78947
+
+[node name="Mob" parent="path3/MobPath3" instance=ExtResource("5_1ribs")]
+rotation = -1.12748
+
+[connection signal="hit" from="BackGround/Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

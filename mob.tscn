@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmj7r73ehj72u"]
+
+[ext_resource type="Texture2D" uid="uid://bh4ehli38yow0" path="res://assets/obstacle.png" id="1_5a6hh"]
+[ext_resource type="Script" path="res://mob.gd" id="1_gc01n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70dfy"]
+size = Vector2(180, 118)
+
+[node name="Mob" type="StaticBody2D"]
+script = ExtResource("1_gc01n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_5a6hh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 57)
+shape = SubResource("RectangleShape2D_70dfy")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
