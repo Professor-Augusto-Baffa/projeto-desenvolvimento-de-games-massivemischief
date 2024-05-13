@@ -1,11 +1,49 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8gt4gg25fson"]
+[gd_scene load_steps=18 format=3 uid="uid://b8gt4gg25fson"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lltj6"]
 [ext_resource type="PackedScene" uid="uid://bo4e7wp3cuonb" path="res://main_sky_view.tscn" id="2_qmrx6"]
 [ext_resource type="Script" path="res://camera.cs" id="3_3l46o"]
 [ext_resource type="PackedScene" uid="uid://cfaell15opqcd" path="res://back_ground.tscn" id="3_dth3d"]
-[ext_resource type="PackedScene" uid="uid://luy12pcd3g0w" path="res://player.tscn" id="4_ktmft"]
-[ext_resource type="PackedScene" uid="uid://dmj7r73ehj72u" path="res://mob.tscn" id="5_1ribs"]
+[ext_resource type="Texture2D" uid="uid://bh4ehli38yow0" path="res://assets/obstacle.png" id="3_kqim0"]
+[ext_resource type="PackedScene" uid="uid://cg0g6l1mfq6wv" path="res://player.tscn" id="4_ktmft"]
+[ext_resource type="PackedScene" uid="uid://daqk0mde6s3r6" path="res://mob.tscn" id="5_1ribs"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_1rurh"]
+script/source = "using Godot;
+using System;
+
+public partial class mob : RigidBody2D
+{
+	
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uy1rr"]
+size = Vector2(240, 166)
+
+[sub_resource type="PackedScene" id="PackedScene_rmavf"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(1073741828, 1073741827, 18, 17, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Mob", "RigidBody2D", "gravity_scale", "script", "Sprite2D", "Sprite2D", "texture", "metadata/_edit_group_", "CollisionShape2D", "CollisionShape2D", "position", "shape", "metadata/_edit_group_", "VisibleOnScreenNotifier2D", "VisibleOnScreenNotifier2D", "position", "scale", "_on_visible_on_screen_notifier_2d_screen_exited", "screen_exited"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("VisibleOnScreenNotifier2D")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0, 1073741824, 0, 5, 4, -1, 2, 6, 2, 7, 3, 0, 1073741825, 0, 9, 8, -1, 3, 10, 4, 11, 5, 12, 6, 0, 1073741826, 0, 14, 13, -1, 2, 15, 7, 16, 8, 0),
+"variants": [0.0, SubResource("CSharpScript_1rurh"), ExtResource("3_kqim0"), true, Vector2(5, 76), SubResource("RectangleShape2D_uy1rr"), true, Vector2(4.5, 75), Vector2(11.75, 8.5)],
+"version": 3
+}
 
 [sub_resource type="Curve2D" id="Curve2D_87ebw"]
 _data = {
@@ -92,7 +130,7 @@ func _process(delta):
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lltj6")
-mob_scene = ExtResource("5_1ribs")
+mob_scene = SubResource("PackedScene_rmavf")
 
 [node name="MainSkyView" parent="." instance=ExtResource("2_qmrx6")]
 position = Vector2(-5, -1089)
@@ -105,7 +143,7 @@ metadata/_edit_group_ = true
 [node name="BackGround" parent="." instance=ExtResource("3_dth3d")]
 
 [node name="Player" parent="BackGround" instance=ExtResource("4_ktmft")]
-position = Vector2(632, 800)
+position = Vector2(656, 800)
 
 [node name="MobTimer" type="Timer" parent="."]
 
@@ -128,7 +166,7 @@ rotation = -1.52084
 script = SubResource("GDScript_4posh")
 
 [node name="Mob" parent="path/MobPath1" instance=ExtResource("5_1ribs")]
-rotation = -1.31598
+rotation = -1.45037
 
 [node name="path2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_c7n2p")
@@ -139,7 +177,7 @@ position = Vector2(728, 168)
 rotation = -1.68145
 
 [node name="Mob" parent="path2/MobPath2" instance=ExtResource("5_1ribs")]
-rotation = -1.28805
+rotation = -1.12574
 
 [node name="path3" type="Path2D" parent="."]
 curve = SubResource("Curve2D_pliwr")
@@ -150,9 +188,8 @@ position = Vector2(848, 152)
 rotation = -1.78947
 
 [node name="Mob" parent="path3/MobPath3" instance=ExtResource("5_1ribs")]
-rotation = -1.12748
+rotation = -0.966912
 
-[connection signal="hit" from="BackGround/Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
