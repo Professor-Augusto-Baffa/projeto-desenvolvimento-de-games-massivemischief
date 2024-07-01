@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo4e7wp3cuonb"]
-
-[ext_resource type="Texture2D" uid="uid://2jvcnd8dadom" path="res://assets/sky_right.png" id="1_mkdk7"]
-
-[node name="MainSkyView" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(721, 541)
-texture = ExtResource("1_mkdk7")
